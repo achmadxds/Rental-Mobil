@@ -1,11 +1,11 @@
 <?php
-    include 'include.php';
-    $sql = query("SELECT * FROM mobil_data");
+include 'include.php';
+$sql = query("SELECT * FROM mobil_data");
 
-    if(isset($_POST['editBanner'])){
-        UpdateBanner($_POST['car_aidi']);
-        header("Refresh:0");
-    }
+if (isset($_POST['editBanner'])) {
+    UpdateBanner($_POST['car_aidi']);
+    header("Refresh:0");
+}
 ?>
 
 <?php include "template/header.php"; ?>
@@ -29,10 +29,21 @@
                 <div class="container mt-3">
                     <div class="card">
                         <div class="card-body">
-                            <?php foreach ($sql as $data) : ?>
-                                <?php $debug = implode(",", $data) ?>
-                                <input type="text" name="editBanner" id="editBanner" class="text-center btn btn-secondary openEditDialog" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug ?>" value="<?php echo $data['car_name']; ?>" readonly>
-                            <?php endforeach; ?>
+                            <div class="row p-1">
+                                <?php foreach ($sql as $data) : ?>
+                                    <?php $debug = implode(",", $data) ?>
+                                    <div class="col-md-4">
+                                        <button style="background:transparent; border:none; color:transparent;" name="editBanner" id="editBanner" class="text-center openEditDialog pt-4" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug ?>">
+                                            <div class="card bg-dark text-white" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center"><?php echo $data['car_name']; ?></h5>
+                                                    <p class="pt-4 text-center">EDIT DATA</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>

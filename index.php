@@ -2,7 +2,7 @@
     session_start();
     include 'admin/auth.php';
 
-    $sql = query("SELECT * FROM mobil_data");
+    $sql = query("SELECT * FROM mobil_data limit 3");
 ?>
 
 
@@ -127,7 +127,7 @@
             <br>
 
             <div class="main-button text-center">
-                <a href="offers.html">View Offers</a>
+                <a href="offers.php">View Offers</a>
             </div>
         </div>
     </section>
