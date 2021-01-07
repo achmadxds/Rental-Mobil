@@ -1,37 +1,37 @@
 <?php
-    include 'include.php';
-    $status = "Tersedia";
-    $sql = query("SELECT * FROM mobil_data");
+include 'include.php';
+$status = 'Tersedia';
+$sql = query('SELECT `id`, `car_name`, `license_number`, `rental_price`, `type_car`, `status` FROM `mobil_data` ');
 
 
-    if (isset($_POST['add_data'])) {
-        AddDataCar();
-        header('LOCATION:list_mobil.php');
-        exit;
-    }
+if (isset($_POST['add_data'])) {
+    AddDataCar();
+    header('LOCATION:list_mobil.php');
+    exit;
+}
 
-    if(isset($_POST['save'])) {
-        UpdateDataCar();
-        header("Refresh:0");
-    }
+if (isset($_POST['save'])) {
+    UpdateDataCar();
+    header('Refresh:0');
+}
 
-    if(isset($_POST['delete'])){
-        DeleteDataCar($_POST['id']);
-        header("Refresh:0");
-    }
+if (isset($_POST['delete'])) {
+    DeleteDataCar($_POST['id']);
+    header('Refresh:0');
+}
 ?>
 
 
-<?php include "template/header.php"; ?>
+<?php include 'template/header.php'; ?>
 
 <body id="page-top">
     <div id="wrapper">
 
-        <?php include "template/sidebar.php"; ?>
+        <?php include 'template/sidebar.php'; ?>
 
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <?php include "template/navbar.php"; ?>
+                <?php include 'template/navbar.php'; ?>
 
                 <div class="container">
                     <div class="float-left">
@@ -65,31 +65,33 @@
                                     </tr>
                                 </thead>
 
-                                <?php $i = 1; ?>
-                                <?php foreach ($sql as $data) : ?>
-                                <?php $debug = implode(",", $data)?>
-                                    <tbody>
-                                        <tr>
-                                            <th><?php echo $i; ?></th>
-                                            <th><?php echo $data['car_name']; ?></th>
-                                            <th><?php echo $data['plate_number']; ?></th>
-                                            <th><?php echo $data['rental_price']; ?></th>
-                                            <th><?php echo $data['type_car']; ?></th>
-
-                                            <?php if($data['status'] == "Tersedia"): ?>
-                                                <?php $color = 'success'; ?>
-                                            <?php else: ?>
-                                                <?php $color = 'danger'; ?>
-                                            <?php endif; ?>
-                                            
-                                            <th class="badge badge-<?= $color ?> mt-1"><?php echo $data['status']; ?></th>
-                                            <th>
-                                                <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><i class="far fa-edit fa-lg"></i></a>
-                                            </th>
-                                        </tr>
-                                        <?php $i++; ?>
-                                    </tbody>
-                                <?php endforeach; ?>
+                                <?php 
+                                    $i = 1;
+                                    foreach ($sql as $data) {
+                                        $debug = implode(",", $data);
+                                    ?>
+                                        <tbody>
+                                            <tr>
+                                                <th><?php echo $i; ?></th>
+                                                <th><?php echo $data['car_name']; ?></th>
+                                                <th><?php echo $data['license_number']; ?></th>
+                                                <th><?php echo $data['rental_price']; ?></th>
+                                                <th><?php echo $data['type_car']; ?></th>
+                                                <?php 
+                                                    if($data['status'] == "Tersedia")
+                                                        $color = 'success';
+                                                    else
+                                                        $color = 'danger'; ?>
+                                                <th class="badge badge-<?= $color ?> mt-1"><?php echo $data['status']; ?></th>
+                                                <th>
+                                                    <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><i class="far fa-edit fa-lg"></i></a>
+                                                </th>
+                                            </tr>
+                                            <?php $i++; ?>
+                                        </tbody>
+                                    <?php
+                                    }
+                                ?>
                             </table>
 
                         </div>
@@ -98,7 +100,7 @@
 
             </div>
 
-            <?php include "template/footer.php"; ?>
+            <?php include 'template/footer.php'; ?>
 
         </div>
     </div>
@@ -120,8 +122,8 @@
                             <input type="text" name="car_name" id="car_name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="plate_number" class="text-primary">Plat Nomor:</label><br>
-                            <input type="text" name="plate_number" id="plate_number" class="form-control" required>
+                            <label for="license_number" class="text-primary">Plat Nomor:</label><br>
+                            <input type="text" name="license_number" id="license_number" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="rental_price" class="text-primary">Harga Rental:</label><br>
@@ -184,9 +186,9 @@
 </body>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         var values;
-        $(".openEditDialog").click(function(){
+        $(".openEditDialog").click(function() {
             values = $(this).data("id");
             values = values.split(",");
             console.log(values);
@@ -196,8 +198,6 @@
             $("#edit_price").val(values[3]);
             $("#statusCar").val(values[5]);
             $("#edit_type").val(values[4]);
-            $("#descEdit").val(values[6]);
         });
     });
 </script>
-
