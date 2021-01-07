@@ -12,11 +12,11 @@ if (isset($_POST['editBanner'])) {
 
 <body id="page-top">
 	<div id="wrapper">
-		<?php include "template/sidebar.php"; ?>
+		<?php include 'template/sidebar.php'; ?>
 
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
-				<?php include "template/navbar.php"; ?>
+				<?php include 'template/navbar.php'; ?>
 
 				<div class="container">
 					<div class="text-center">
@@ -72,16 +72,16 @@ if (isset($_POST['editBanner'])) {
 						<div class="form-group">
 							<input type="hidden" name="car_aidi" id="car_aidi">
 							<label for="descBanner" class="text-primary">Deskripsi:</label><br>
-							<textarea name="descBanner" id="descBanner" cols="45" rows="10" placeholder="isi deskrisi..."></textarea>
+							<textarea class="form-control" rows="3" name="descBanner" id="descBanner" placeholder="isi deskrisi..."></textarea>
 						</div>
 						<div class="form-group">
 							<label for="carImgEdit" class="text-primary">Foto Mobil :</label><br>
 							<input type="hidden" name="carImgEdit" id="carImgEdit">
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" id="carImg" placeholder="isi foto..." readonly>
+								<input type="text" class="form-control filename" id="carImg" placeholder="isi foto..." readonly>
 								<div class="input-group-append">
 									<label class="btn btn-secondary">
-										browse <input type="file" name="carImg" class="form-control" hidden>
+										browse <input type="file" name="carImg" class="form-control costumfile" hidden>
 									</label>
 								</div>
 							</div>
@@ -108,5 +108,10 @@ if (isset($_POST['editBanner'])) {
 			$("#carImg").val(values[3]);
 			$("#carImgEdit").val(values[3]);
 		});
+
+		$('.costumfile').on('change',function(event) {
+            var test = event.target.files[0].name;
+            $('.filename').val(test);
+        });
 	});
 </script>

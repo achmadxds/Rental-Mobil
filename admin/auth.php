@@ -106,10 +106,11 @@ function AddDataCustomer()
   if ($identity == false)
     return false;
 
-  $query = "INSERT INTO data_customer values (default, '$id_car','$name', '$identity', '$address', '$phone', '$checkin', default, default, default, '$status')";
+  $query = 'INSERT INTO `data_customer` values (`id_car`, `name`, `identity`, `address`, `phone`, `checkin`, `status_cs`) 
+            VALUES ('.$id_car.',"'.$name.'", "'.$identity.'", "'.$address.'", "'.$phone.'", '.$checkin.', "'.$status.'")';
 
   if (mysqli_query($connect, $query))
-    UpdateCar($id_car, "Terpakai");
+    UpdateCar($id_car, 'Terpakai');
 
   return mysqli_affected_rows($connect);
 }
@@ -118,7 +119,7 @@ function UpdateCar($id, $string)
 {
   global $connect;
 
-  $statusCar = "UPDATE mobil_data SET status='$string' where id='$id' ";
+  $statusCar = 'UPDATE `mobil_data` SET `status`="'.$string.'" WHERE `id`='.$id.' ';
   mysqli_query($connect, $statusCar);
 
   return mysqli_affected_rows($connect);
@@ -141,8 +142,8 @@ function UpdateDataCustomer()
   else
     $ID = UploadImg('identityEdit');
 
-  $query = "UPDATE data_customer SET name='$name', identity='$ID', address='$address', phone='$phone', 
-    checkin='$checkin', status_cs='$status' WHERE id_cs='$id' ";
+  $query = 'UPDATE `data_customer` SET `name`="'.$name.'", `identity`="'.$ID.'", `address`="'.$address.'", `phone`="'.$phone.'", 
+    `checkin`='.$checkin.', `status_cs`="'.$status.'" WHERE `id_cs`='.$id.' ';
 
   mysqli_query($connect, $query);
 
@@ -166,10 +167,10 @@ function DeleteDataCustomer($id)
   global $connect;
 
   $car_id = $_POST['car_id'];
-  $query = "DELETE FROM data_customer where id_cs='$id' ";
+  $query = 'DELETE FROM `data_customer` where `id_cs`='.$id.' ';
 
   if (mysqli_query($connect, $query)) {
-    UpdateCar($car_id, "Tersedia");
+    UpdateCar($car_id, 'Tersedia');
   }
 
   return mysqli_affected_rows($connect);

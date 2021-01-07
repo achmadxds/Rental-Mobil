@@ -3,8 +3,7 @@
 
     if(isset($_POST['logout'])){
         unset($_SESSION['login']);
-        header("Location: http://localhost/car/admin/index.php");
-        // header('LOCATION: ../index.php');
+        header('Location: http://localhost/car/admin/index.php');
     }
 ?>
 
