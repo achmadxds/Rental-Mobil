@@ -4,8 +4,8 @@ include 'include.php';
 $status = 'Berjalan';
 $statusCar = 'Tersedia';
 
-$sql = query('SELECT `dc`.`id_cs`, `dc`.`id_car`, `dc`.`name`, `dc`.`identity`, 
-							`dc`.`address`, `dc`.`phone`, `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`  
+$sql = query('SELECT `dc`.`id_cs`, `dc`.`id_car`, `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, 
+              `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`  
 							FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
 							ON `dc`.`id_car` = `md`.`id` where `dc`.`status_cs`="' . $status . '" ');
 
@@ -19,17 +19,17 @@ if (isset($_POST['add_data'])) {
 
 if (isset($_POST['delete'])) {
   DeleteDataCustomer($_POST['id']);
-  header("Refresh:0");
+  header('Refresh:0');
 }
 
 if (isset($_POST['update'])) {
   UpdateDataCustomer();
-  header("Refresh:0");
+  header('Refresh:0');
 }
 
 if (isset($_POST['done'])) {
   DoneTransaction($_POST['idE']);
-  header("Refresh:0");
+  header('Refresh:0');
 }
 ?>
 
@@ -82,36 +82,36 @@ if (isset($_POST['done'])) {
                 </thead>
 
                 <?php
-                $i = 1;
-                foreach ($sql as $data) {
-                  $debug = implode(",", $data);
-                ?>
-                  <tbody id="myTable">
-                    <tr>
-                      <th><?php echo $i; ?></th>
-                      <th><?php echo $data['name']; ?></th>
-                      <th><?php echo $data['address']; ?></th>
-                      <th><?php echo $data['car_name']; ?></th>
-                      <th><?php echo $data['checkin']; ?></th>
-                      <th class="badge badge-danger mt-1"><?php echo $data['status_cs']; ?></th>
-                      <th>
-                        <form method="post">
-                          <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
-                          |
-                          <button type="submit" class="badge badge-success getID" name="done" id="done" data-id="<?php echo $debug ?>" onclick="return confirm('Beneran nih?')"><i class="fas fa-check-circle fa-lg"></i></button>
-                          <div class="groupDone">
-                            <input type="hidden" id="car_idSubmit" name="car_idSubmit">
-                            <input type="hidden" id="idE" name="idE">
-                            <input type="hidden" name="checkEn" id="checkEn">
-                            <input type="hidden" name="price" id="price">
-                          </div>
-                        </form>
-                      </th>
-                    </tr>
-                  </tbody>
-                <?php
-                  $i++;
-                }
+                  $i = 1;
+                  foreach ($sql as $data) {
+                    $debug = implode(",", $data);
+                  ?>
+                    <tbody id="myTable">
+                      <tr>
+                        <th><?php echo $i; ?></th>
+                        <th><?php echo $data['name']; ?></th>
+                        <th><?php echo $data['address']; ?></th>
+                        <th><?php echo $data['car_name']; ?></th>
+                        <th><?php echo $data['checkin']; ?></th>
+                        <th class="badge badge-danger mt-1"><?php echo $data['status_cs']; ?></th>
+                        <th>
+                          <form method="post">
+                            <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
+                            |
+                            <button type="submit" class="badge badge-success getID" name="done" id="done" data-id="<?php echo $debug ?>" onclick="return confirm('Beneran nih?')"><i class="fas fa-check-circle fa-lg"></i></button>
+                            <div class="groupDone">
+                              <input type="hidden" id="car_idSubmit" name="car_idSubmit">
+                              <input type="hidden" id="idE" name="idE">
+                              <input type="hidden" name="checkEn" id="checkEn">
+                              <input type="hidden" name="price" id="price">
+                            </div>
+                          </form>
+                        </th>
+                      </tr>
+                    </tbody>
+                  <?php
+                    $i++;
+                  }
                 ?>
               </table>
 
@@ -175,14 +175,14 @@ if (isset($_POST['done'])) {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="id_car" class="text-primary">Mobil Yang Dipinjam :</label><br>
-                  <select name="id_car" required class="form-control">
+                  <select name="id_car" class="form-control" required>
                     <option disabled selected> Pilih </option>
                     <?php
-                    foreach ($selectCar as $data) {
-                    ?>
-                      <option value="<?php echo $data['id']; ?>" class="form-control"> <?php echo $data['car_name']; ?> </option>
-                    <?php
-                    }
+                      foreach ($selectCar as $data) {
+                      ?>
+                        <option value="<?php echo $data['id']; ?>" class="form-control"> <?php echo $data['car_name']; ?> </option>
+                      <?php
+                      }
                     ?>
                   </select>
                 </div>
@@ -219,9 +219,8 @@ if (isset($_POST['done'])) {
 
             <div class="row p-2">
               <div class="col-md-6">
-                <input type="text" id="car_id" name="car_id">
                 <div class="form-group">
-                  <input type="hidden" id="id" name="id">
+                  <input type="hidden" id="csID" name="csID">
                   <label for="csEdit" class="text-primary">Nama :</label><br>
                   <input type="text" name="csEdit" id="csEdit" class="form-control" required>
                 </div>
@@ -232,10 +231,10 @@ if (isset($_POST['done'])) {
                   <label for="identityEdit1" class="text-primary">Identitas :</label><br>
                   <input type="hidden" name="identityEdit1" id="identityEdit1">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="identityEdit" placeholder="isi foto..." readonly>
+                    <input type="text" class="form-control filename" id="identityEdit" placeholder="isi foto..." readonly>
                     <div class="input-group-append">
                       <label class="btn btn-secondary">
-                        browse <input type="file" name="identityEdit" class="form-control" hidden>
+                        browse <input type="file" name="identityEdit" class="form-control costumfile" hidden>
                       </label>
                     </div>
                   </div>
@@ -276,7 +275,7 @@ if (isset($_POST['done'])) {
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" name="update" id="update" class="btn btn-primary">Edit Data</button>
+              <button type="submit" name="update" id="update" class="btn btn-primary" onclick="return confirm('Update Data nya nih?')">Edit Data</button>
               <button type="submit" name="delete" id="delete" class="btn btn-danger" onclick="return confirm('Beneran nih?')">Hapus Data</button>
             </div>
           </form>
@@ -301,7 +300,7 @@ if (isset($_POST['done'])) {
     $(".openEditDialog").click(function() {
       values = $(this).data("id");
       values = values.split(",");
-      $("#id").val(values[0]);
+      $("#csID").val(values[0]);
       $("#car_id").val(values[1]);
       $("#csEdit").val(values[2]);
       $("#identityEdit").val(values[3]);
@@ -319,6 +318,11 @@ if (isset($_POST['done'])) {
       $("#checkEn").val(values[6]);
       $("#car_idSubmit").val(values[1]);
       $("#price").val(values[9]);
+    });
+
+    $('.costumfile').on('change', function(event) {
+      var test = event.target.files[0].name;
+      $('.filename').val(test);
     });
   });
 </script>

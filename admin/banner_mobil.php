@@ -11,6 +11,7 @@ if (isset($_POST['editBanner'])) {
 <?php include 'template/header.php'; ?>
 
 <body id="page-top">
+	
 	<div id="wrapper">
 		<?php include 'template/sidebar.php'; ?>
 
@@ -105,13 +106,13 @@ if (isset($_POST['editBanner'])) {
 			values = values.split(",");
 			$("#car_aidi").val(values[0]);
 			$("#descBanner").val(values[2]);
-			$("#carImg").val(values[3]);
 			$("#carImgEdit").val(values[3]);
+			$("#carImg").val(values[3]);
 		});
 
 		$('.costumfile').on('change',function(event) {
-            var test = event.target.files[0].name;
-            $('.filename').val(test);
-        });
+      var test = event.target.files[0].name;
+      $('.filename').val(test);
+    });
 	});
 </script>

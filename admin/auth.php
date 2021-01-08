@@ -8,8 +8,8 @@ if (mysqli_connect_errno()) {
 function query($query)
 {
   global $connect;
-  $result = mysqli_query($connect, $query);
-  $rows = [];
+  $result   = mysqli_query($connect, $query);
+  $rows     = [];
   while ($row = mysqli_fetch_assoc($result)) {
     $rows[] = $row;
   }
@@ -34,8 +34,8 @@ function AddDataCar()
   $type   = $_POST['car_type'];
   $status = 'Tersedia';
 
-  $query = 'INSERT INTO `mobil_data` (`car_name`, `license_number`, `rental_price`, `type_car`, `status`) 
-	values ("' . $car . '", "' . $plate . '", ' . $price . ', "' . $type . '","' . $status . '")';
+  $query  = 'INSERT INTO `mobil_data` (`car_name`, `license_number`, `rental_price`, `type_car`, `status`) 
+	          values ("' . $car . '", "' . $plate . '", ' . $price . ', "' . $type . '","' . $status . '")';
 
   mysqli_query($connect, $query);
 
@@ -68,11 +68,11 @@ function UpdateBanner($id)
   $lastImg   = $_POST['carImgEdit'];
 
   if ($_FILES['carImg']['error'] == 4)
-    $img = $lastImg;
+    $img     = $lastImg;
   else
-    $img = UploadImg('carImg');
+    $img     = UploadImg('carImg');
 
-  $query = 'UPDATE `mobil_data` SET `description`="' . $desc . '", `car_img`="' . $img . '" WHERE `id`=' . $id . ' ';
+  $query     = 'UPDATE `mobil_data` SET `description`="' . $desc . '", `car_img`="' . $img . '" WHERE `id`=' . $id . ' ';
   mysqli_query($connect, $query);
 
   return mysqli_affected_rows($connect);
@@ -82,7 +82,7 @@ function DeleteDataCar($id)
 {
   global $connect;
 
-  $query = 'DELETE FROM `mobil_data` where `id`='.$id.' ';
+  $query = 'DELETE FROM `mobil_data` where `id`=' . $id . ' ';
   mysqli_query($connect, $query);
 
   return mysqli_affected_rows($connect);
@@ -93,21 +93,19 @@ function DeleteDataCar($id)
 function AddDataCustomer()
 {
   global $connect;
-
-  $name = $_POST['namecs'];
-  $address = $_POST['address'];
-  $phone = $_POST['phone'];
-  $checkin = $_POST['checkin'];
-  $status = "Berjalan";
-
-  $id_car = $_POST['id_car'];
+  $name     = $_POST['namecs'];
+  $address  = $_POST['address'];
+  $phone    = $_POST['phone'];
+  $checkin  = $_POST['checkin'];
+  $status   = 'Berjalan';
+  $id_car   = $_POST['id_car'];
   $identity = UploadImg('identity');
 
   if ($identity == false)
     return false;
 
-  $query = 'INSERT INTO `data_customer` values (`id_car`, `name`, `identity`, `address`, `phone`, `checkin`, `status_cs`) 
-            VALUES ('.$id_car.',"'.$name.'", "'.$identity.'", "'.$address.'", "'.$phone.'", '.$checkin.', "'.$status.'")';
+  $query = 'INSERT INTO `data_customer` (`id_car`, `name`, `identity`, `address`, `phone`, `checkin`, `status_cs`)
+            VALUES (' . $id_car . ', "' . $name . '", "' . $identity . '", "' . $address . '", "' . $phone . '", "' . $checkin . '", "' . $status . '")';
 
   if (mysqli_query($connect, $query))
     UpdateCar($id_car, 'Terpakai');
@@ -119,7 +117,7 @@ function UpdateCar($id, $string)
 {
   global $connect;
 
-  $statusCar = 'UPDATE `mobil_data` SET `status`="'.$string.'" WHERE `id`='.$id.' ';
+  $statusCar = 'UPDATE `mobil_data` SET `status`="' . $string . '" WHERE `id`=' . $id . ' ';
   mysqli_query($connect, $statusCar);
 
   return mysqli_affected_rows($connect);
@@ -129,21 +127,21 @@ function UpdateDataCustomer()
 {
   global $connect;
 
-  $id         = $_POST['id'];
+  $id         = $_POST['csID'];
   $name       = $_POST['csEdit'];
-  $address     = $_POST['addressEdit'];
-  $phone       = $_POST['phoneEdit'];
+  $address    = $_POST['addressEdit'];
+  $phone      = $_POST['phoneEdit'];
   $lastID     = $_POST['identityEdit1'];
-  $checkin     = $_POST['checkinEdit'];
-  $status     = "Berjalan";
+  $checkin    = $_POST['checkinEdit'];
+  $status     = 'Berjalan';
 
   if ($_FILES['identityEdit']['error'] === 4)
     $ID = $lastID;
   else
     $ID = UploadImg('identityEdit');
 
-  $query = 'UPDATE `data_customer` SET `name`="'.$name.'", `identity`="'.$ID.'", `address`="'.$address.'", `phone`="'.$phone.'", 
-    `checkin`='.$checkin.', `status_cs`="'.$status.'" WHERE `id_cs`='.$id.' ';
+  $query = 'UPDATE `data_customer` SET `name`="' . $name . '", `identity`="' . $ID . '", `address`="'.$address.'", 
+           `phone`="'.$phone.'", `checkin`="'.$checkin.'", `status_cs`="'.$status.'" WHERE `id_cs`=' . $id . ' ';
 
   mysqli_query($connect, $query);
 
@@ -153,7 +151,7 @@ function UpdateDataCustomer()
 function UploadImg($name)
 {
   $namaFile = $_FILES[$name]['name'];
-  $tmpName = $_FILES[$name]['tmp_name'];
+  $tmpName  = $_FILES[$name]['tmp_name'];
 
   $fileExtension = explode('.', $namaFile);
   $fileExtension = strtolower(end($fileExtension));
@@ -167,7 +165,7 @@ function DeleteDataCustomer($id)
   global $connect;
 
   $car_id = $_POST['car_id'];
-  $query = 'DELETE FROM `data_customer` where `id_cs`='.$id.' ';
+  $query  = 'DELETE FROM `data_customer` where `id_cs`=' . $id . ' ';
 
   if (mysqli_query($connect, $query)) {
     UpdateCar($car_id, 'Tersedia');
@@ -180,17 +178,16 @@ function DoneTransaction($id)
 {
   global $connect;
 
-  $string = 'Selesai';
-  $car_id = $_POST['car_idSubmit'];
-  $price = $_POST['price'];
-  $co = date('Y/m/d');
-  $ci = $_POST['checkEn'];
-  $date = DateDiff($ci, $co);
-
-  $prices = $date * $price;
+  $string   = 'Selesai';
+  $car_id   = $_POST['car_idSubmit'];
+  $price    = $_POST['price'];
+  $co       = date('Y/m/d');
+  $ci       = $_POST['checkEn'];
+  $date     = DateDiff($ci, $co);
+  $prices   = $date * $price;
 
   $query = 'UPDATE `data_customer` SET `status_cs`="' . $string . '", `checkout`="' . $co . '", `days`="' . $date . '", 
-	`totalPrice`="' . $prices . '" WHERE `id_cs`="' . $id . '" ';
+	         `totalPrice`="' . $prices . '" WHERE `id_cs`="' . $id . '" ';
 
   if (mysqli_query($connect, $query)) {
     UpdateCar($car_id, 'Tersedia');

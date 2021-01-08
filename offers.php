@@ -29,20 +29,6 @@ $sql = query("SELECT * FROM mobil_data");
 
 <body>
 
-    <!-- ***** Preloader Start ***** -->
-    <div id="js-preloader" class="js-preloader">
-        <div class="preloader-inner">
-            <span class="dot"></span>
-            <div class="dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div>
-    <!-- ***** Preloader End ***** -->
-
-
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
         <div class="container">
@@ -50,7 +36,7 @@ $sql = query("SELECT * FROM mobil_data");
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">Car Rental<em> Website</em></a>
+                        <a href="index.php" class="logo">Car Rental<em> Website</em></a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -60,11 +46,10 @@ $sql = query("SELECT * FROM mobil_data");
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
 
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="about.html">About Us</a>
-                                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
+                                    <a class="dropdown-item" href="about.php">About Us</a>
+                                    <a class="dropdown-item" href="testimonials.php">Testimonials</a>
                                 </div>
                             </li>
-                            <li><a href="contact.html">Contact</a></li>
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
