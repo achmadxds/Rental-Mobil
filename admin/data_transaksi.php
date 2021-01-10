@@ -1,36 +1,35 @@
 <?php
-include 'include.php';
+  include 'include.php';
+  $status = 'Berjalan';
+  $statusCar = 'Tersedia';
 
-$status = 'Berjalan';
-$statusCar = 'Tersedia';
+  $sql = query('SELECT `dc`.`id_cs`, `dc`.`id_car`, `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, 
+                  `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`, `md`.`id_mobil`
+                  FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
+                  ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
 
-$sql = query('SELECT `dc`.`id_cs`, `dc`.`id_car`, `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, 
-              `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`  
-							FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
-							ON `dc`.`id_car` = `md`.`id` where `dc`.`status_cs`="' . $status . '" ');
+  $selectCar = query('SELECT `id_mobil`, `car_name` FROM `mobil_data` where `status`="' . $statusCar . '" ');
 
-$selectCar = query('SELECT `id`, `car_name` FROM `mobil_data` where `status`="' . $statusCar . '" ');
+  if (isset($_POST['add_customer'])) {
+    AddCustomer();
+    header('LOCATION:data_transaksi.php');
+    exit;
+  }
 
-if (isset($_POST['add_data'])) {
-  AddDataCustomer();
-  header('LOCATION:data_transaksi.php');
-  exit;
-}
+  if (isset($_POST['delete'])) {
+    DeleteDataCustomer($_POST['csID']);
+    header('Refresh:0');
+  }
 
-if (isset($_POST['delete'])) {
-  DeleteDataCustomer($_POST['id']);
-  header('Refresh:0');
-}
+  if (isset($_POST['update'])) {
+    UpdateDataCustomer();
+    header('Refresh:0');
+  }
 
-if (isset($_POST['update'])) {
-  UpdateDataCustomer();
-  header('Refresh:0');
-}
-
-if (isset($_POST['done'])) {
-  DoneTransaction($_POST['idE']);
-  header('Refresh:0');
-}
+  if (isset($_POST['done'])) {
+    DoneTransaction($_POST['idE']);
+    header('Refresh:0');
+  }
 ?>
 
 <?php include 'template/header.php'; ?>
@@ -67,7 +66,6 @@ if (isset($_POST['done'])) {
                   <input class="form-control mb-4" id="tableSearch" type="text" placeholder="search...">
                 </div>
               </form>
-
               <table class="table mt-5 text-center">
                 <thead>
                   <tr>
@@ -95,16 +93,14 @@ if (isset($_POST['done'])) {
                         <th><?php echo $data['checkin']; ?></th>
                         <th class="badge badge-danger mt-1"><?php echo $data['status_cs']; ?></th>
                         <th>
-                          <form method="post">
-                            <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
-                            |
-                            <button type="submit" class="badge badge-success getID" name="done" id="done" data-id="<?php echo $debug ?>" onclick="return confirm('Beneran nih?')"><i class="fas fa-check-circle fa-lg"></i></button>
-                            <div class="groupDone">
-                              <input type="hidden" id="car_idSubmit" name="car_idSubmit">
-                              <input type="hidden" id="idE" name="idE">
-                              <input type="hidden" name="checkEn" id="checkEn">
-                              <input type="hidden" name="price" id="price">
-                            </div>
+                          <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
+                          |
+                          <form method="post" style="float:right">
+                            <button type="submit" class="badge badge-success getID" name="done" id="done" data-id="<?php echo $debug; ?>" onclick="return confirm('Beneran nih?')"><i class="fas fa-check-circle fa-lg"></i></button>
+                            <input type="hidden" id="car_idSubmit" name="car_idSubmit">
+                            <input type="hidden" id="idE" name="idE">
+                            <input type="hidden" name="checkEn" id="checkEn">
+                            <input type="hidden" name="price" id="price">
                           </form>
                         </th>
                       </tr>
@@ -114,7 +110,6 @@ if (isset($_POST['done'])) {
                   }
                 ?>
               </table>
-
             </div>
           </div>
         </div>
@@ -142,15 +137,15 @@ if (isset($_POST['done'])) {
             <div class="row p-2">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="namecs" class="text-primary">Nama :</label><br>
-                  <input type="text" name="namecs" id="namecs" class="form-control" required>
+                  <label for="nameCS" class="text-primary">Nama :</label><br>
+                  <input type="text" name="nameCS" id="nameCS" class="form-control">
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="identity" class="text-primary">Identitas :</label><br>
-                  <input type="file" name="identity" id="identity" class="form-control" required>
+                  <input type="file" name="identity" id="identity" class="form-control">
                 </div>
               </div>
             </div>
@@ -159,14 +154,14 @@ if (isset($_POST['done'])) {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="address" class="text-primary">Alamat :</label><br>
-                  <input type="text" name="address" id="address" class="form-control" required>
+                  <input type="text" name="address" id="address" class="form-control">
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="phone" class="text-primary">No Telp :</label><br>
-                  <input type="number" name="phone" id="phone" class="form-control" required>
+                  <input type="number" name="phone" id="phone" class="form-control">
                 </div>
               </div>
             </div>
@@ -174,15 +169,15 @@ if (isset($_POST['done'])) {
             <div class="row p-2">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="id_car" class="text-primary">Mobil Yang Dipinjam :</label><br>
-                  <select name="id_car" class="form-control" required>
+                  <label for="car_cs" class="text-primary">Mobil Yang Dipinjam :</label><br>
+                  <select name="car_cs" class="form-control">
                     <option disabled selected> Pilih </option>
                     <?php
-                      foreach ($selectCar as $data) {
-                      ?>
-                        <option value="<?php echo $data['id']; ?>" class="form-control"> <?php echo $data['car_name']; ?> </option>
-                      <?php
-                      }
+                    foreach ($selectCar as $data) {
+                    ?>
+                      <option value="<?php echo $data['id_mobil']; ?>" class="form-control"> <?php echo $data['car_name']; ?> </option>
+                    <?php
+                    }
                     ?>
                   </select>
                 </div>
@@ -191,12 +186,12 @@ if (isset($_POST['done'])) {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="checkin" class="text-primary">Tanggal Diambil :</label><br>
-                  <input type="date" name="checkin" id="checkin" class="form-control" required>
+                  <input type="date" name="checkin" id="checkin" class="form-control">
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" name="add_data" class="btn btn-primary">Tambah Data</button>
+              <button type="submit" name="add_customer" class="btn btn-primary">Tambah Data</button>
             </div>
           </form>
         </div>
@@ -221,6 +216,7 @@ if (isset($_POST['done'])) {
               <div class="col-md-6">
                 <div class="form-group">
                   <input type="hidden" id="csID" name="csID">
+                  <input type="hidden" id="car_id" name="car_id">
                   <label for="csEdit" class="text-primary">Nama :</label><br>
                   <input type="text" name="csEdit" id="csEdit" class="form-control" required>
                 </div>
@@ -293,13 +289,13 @@ if (isset($_POST['done'])) {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
-  });
 
-  $(document).ready(function() {
-    var values;
+    var values, test;
     $(".openEditDialog").click(function() {
       values = $(this).data("id");
       values = values.split(",");
+      test = values[3];
+      console.log(values);
       $("#csID").val(values[0]);
       $("#car_id").val(values[1]);
       $("#csEdit").val(values[2]);
@@ -309,20 +305,25 @@ if (isset($_POST['done'])) {
       $("#phoneEdit").val(values[5]);
       $("#checkinEdit").val(values[6]);
       $("#carEdit").val(values[8]);
+
+      $('.costumfile').on('change', function(event) {
+        test = event.target.files[0].name;
+        $('.filename').val(test);
+      });
+
+      $(".filename").click(function() {
+        window.open("http://localhost/PKL/Rental-Mobil/admin/images/" + values[3]);
+      });
     });
 
     $(".getID").click(function() {
       values = $(this).data("id");
       values = values.split(",");
+      console.log(values);
       $("#idE").val(values[0]);
       $("#checkEn").val(values[6]);
       $("#car_idSubmit").val(values[1]);
       $("#price").val(values[9]);
-    });
-
-    $('.costumfile').on('change', function(event) {
-      var test = event.target.files[0].name;
-      $('.filename').val(test);
     });
   });
 </script>

@@ -32,14 +32,13 @@
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
-              <li><a href="fleet.php">Fleet</a></li>
               <li><a href="offers.php">Offers</a></li>
               <li class="dropdown">
                 <a class="dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
 
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="about.php">About Us</a>
-                  <a class="dropdown-item active" href="testimonials.php">Testimonials</a>
+                  <a class="dropdown-item active" href="testimonial.php">Testimonials</a>
                 </div>
               </li>
             </ul>

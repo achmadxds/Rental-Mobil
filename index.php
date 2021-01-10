@@ -1,8 +1,8 @@
 <?php
-session_start();
-include 'admin/auth.php';
+  session_start();
+  include 'admin/auth.php';
 
-$sql = query("SELECT * FROM mobil_data limit 3");
+  $sql = query('SELECT `car_img`, `car_name`, `description` FROM `mobil_data` limit 3');
 ?>
 
 
@@ -47,10 +47,9 @@ $sql = query("SELECT * FROM mobil_data limit 3");
 
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="about.php">About Us</a>
-                  <a class="dropdown-item" href="testimonials.php">Testimonials</a>
+                  <a class="dropdown-item" href="testimonial.php">Testimonials</a>
                 </div>
               </li>
-              <li><a href="contact.php">Contact</a></li>
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>
@@ -105,7 +104,7 @@ $sql = query("SELECT * FROM mobil_data limit 3");
                 </div>
                 <div class="down-content">
                   <h4 class="pt-3"> <?php echo $data['car_name']; ?> </h4>
-                  <p> <?php echo $data['description']; ?> </p>
+                  <p> <?php $data['description']; ?> </p>
                 </div>
               </div>
             </div>
@@ -223,7 +222,7 @@ $sql = query("SELECT * FROM mobil_data limit 3");
       <br>
 
       <div class="main-button text-center">
-        <a href="testimonials.php">Read More</a>
+        <a href="testimonial.php">Read More</a>
       </div>
     </div>
   </section>

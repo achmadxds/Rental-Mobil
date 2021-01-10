@@ -1,34 +1,12 @@
 <?php
-include 'include.php';
+  include 'include.php';
 
-$status = 'Selesai';
-$statusCar = 'Tersedia';
+  $status = 'Selesai';
+  $statusCar = 'Tersedia';
 
-$sql = query('SELECT `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, `dc`.`checkin`, `dc`.`checkout`, `dc`.`totalPrice`, `dc`.`status_cs`, `md`.`car_name`, `md`.`license_number`, `md`.`rental_price`
-            FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
-            ON `dc`.`id_car` = `md`.`id` where `dc`.`status_cs`="' . $status . '" ');
-$selectCar = query('SELECT * FROM mobil_data where status="' . $statusCar . '" ');
-
-if (isset($_POST['add_data'])) {
-  AddDataCustomer();
-  header('LOCATION:data_transaksi.php');
-  exit;
-}
-
-if (isset($_POST['delete'])) {
-  DeleteDataCustomer($_POST['id']);
-  header("Refresh:0");
-}
-
-if (isset($_POST['update'])) {
-  UpdateDataCustomer();
-  header("Refresh:0");
-}
-
-if (isset($_POST['done'])) {
-  DoneTransaction($_POST['idE']);
-  header("Refresh:0");
-}
+  $sql = query('SELECT `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, `dc`.`checkin`, `dc`.`checkout`, `dc`.`totalPrice`, `dc`.`status_cs`, `md`.`car_name`, `md`.`license_number`, `md`.`rental_price`
+              FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
+              ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
 ?>
 
 <?php include 'template/header.php'; ?>

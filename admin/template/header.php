@@ -17,6 +17,5 @@
 
     <!-- Custom styles for this template-->
     <link href="html/css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="html/ckeditor/ckeditor.js"></script>
 
 </head>

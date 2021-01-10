@@ -1,29 +1,29 @@
 <?php
-include 'auth.php';
-session_start();
+  include 'auth.php';
+  session_start();
 
-if (isset($_SESSION['login'])) {
-  header('LOCATION:data_transaksi.php');
-}
-
-if (isset($_POST['login'])) {
-  $usm    = mysqli_escape_string($connect, $_POST['usm']);
-  $pswd   = mysqli_escape_string($connect, md5($_POST['pswd']));
-
-  $result = mysqli_query($connect, 'SELECT `username`, `password` FROM `users` WHERE `username`="' . $usm . '" ');
-  if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    if ($pswd == $row['password']) {
-      $_SESSION['login'] = true;
-      header('LOCATION:data_transaksi.php');
-      exit;
-    } else {
-      echo "<div class='alert alert-danger'>Password do not match.</div>";
-    }
-  } else {
-    echo "<div class='alert alert-danger'>Username do not match.</div>";
+  if (isset($_SESSION['login'])) {
+    header('LOCATION:data_transaksi.php');
   }
-}
+
+  if (isset($_POST['login'])) {
+    $usm    = mysqli_escape_string($connect, $_POST['usm']);
+    $pswd   = mysqli_escape_string($connect, md5($_POST['pswd']));
+
+    $result = mysqli_query($connect, 'SELECT `username`, `password` FROM `users` WHERE `username`="' . $usm . '" ');
+    if (mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      if ($pswd == $row['password']) {
+        $_SESSION['login'] = true;
+        header('LOCATION:data_transaksi.php');
+        exit;
+      } else {
+        echo "<div class='alert alert-danger'>Password do not match.</div>";
+      }
+    } else {
+      echo "<div class='alert alert-danger'>Username do not match.</div>";
+    }
+  }
 ?>
 
 <!DOCTYPE html>

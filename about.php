@@ -7,9 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
   <title>Car Rental Website</title>
 
@@ -34,15 +32,13 @@
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
               <li><a href="index.php">Home</a></li>
-              <li><a href="fleet.php">Fleet</a></li>
               <li><a href="offers.php">Offers</a></li>
               <li class="dropdown">
-                <a class="dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                  aria-expanded="false">About</a>
+                <a class="dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
 
                 <div class="dropdown-menu">
                   <a class="dropdown-item active" href="about.php">About Us</a>
-                  <a class="dropdown-item" href="testimonials.php">Testimonials</a>
+                  <a class="dropdown-item" href="testimonial.php">Testimonials</a>
                 </div>
               </li>
             </ul>
@@ -57,8 +53,7 @@
   </header>
   <!-- ***** Header Area End ***** -->
 
-  <section class="section section-bg" id="call-to-action"
-    style="background-image: url(assets/images/banner-image-1-1920x500.jpg)">
+  <section class="section section-bg" id="call-to-action" style="background-image: url(assets/images/banner-image-1-1920x500.jpg)">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -146,8 +141,7 @@
   <!-- ***** Our Classes End ***** -->
 
   <!-- ***** Call to Action Start ***** -->
-  <section class="section section-bg" id="call-to-action"
-    style="background-image: url(assets/images/banner-image-1-1920x500.jpg)">
+  <section class="section section-bg" id="call-to-action" style="background-image: url(assets/images/banner-image-1-1920x500.jpg)">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -156,7 +150,7 @@
             <p>Ut consectetur, metus sit amet aliquet placerat, enim est ultricies ligula, sit amet dapibus odio augue
               eget libero. Morbi tempus mauris a nisi luctus imperdiet.</p>
             <div class="main-button">
-              <a href="contact.html">Contact us</a>
+              <a href="#" data-toggle="modal" data-target="#exampleModal">Contact us</a>
             </div>
           </div>
         </div>
@@ -178,6 +172,34 @@
       </div>
     </div>
   </footer>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Book Now</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="contact-us">
+            <div class="contact-form">
+              <h3 class="text-center pt-5">WANT BOOK THE CAR?</h3>
+              <h5 class="text-center text-primary pt-2">Contact to this number</h5>
+              <p class="text-center text-success pt-5 fa-lg">WA : 0895396291491</p>
+              <p class="text-center text-info pt-3 fa-lg">Tele : 0895396291491</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- jQuery -->
   <script src="assets/js/jquery-2.1.0.min.js"></script>

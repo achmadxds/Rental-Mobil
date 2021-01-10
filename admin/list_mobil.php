@@ -1,24 +1,24 @@
 <?php
-include 'include.php';
-$status = 'Tersedia';
-$sql = query('SELECT `id`, `car_name`, `license_number`, `rental_price`, `type_car`, `status` FROM `mobil_data` ');
+  include 'include.php';
+  $status = 'Tersedia';
+  $sql = query('SELECT `id_mobil`, `car_name`, `license_number`, `rental_price`, `type_car`, `status` FROM `mobil_data` ');
 
 
-if (isset($_POST['add_data'])) {
-  AddDataCar();
-  header('LOCATION:list_mobil.php');
-  exit;
-}
+  if (isset($_POST['add_data'])) {
+    AddDataCar();
+    header('LOCATION:list_mobil.php');
+    exit;
+  }
 
-if (isset($_POST['save'])) {
-  UpdateDataCar();
-  header('Refresh:0');
-}
+  if (isset($_POST['save'])) {
+    UpdateDataCar();
+    header('Refresh:0');
+  }
 
-if (isset($_POST['delete'])) {
-  DeleteDataCar($_POST['id']);
-  header('Refresh:0');
-}
+  if (isset($_POST['delete'])) {
+    DeleteDataCar($_POST['id_mobil']);
+    header('Refresh:0');
+  }
 ?>
 
 
@@ -161,7 +161,7 @@ if (isset($_POST['delete'])) {
         <form method="POST" action="">
           <div class="modal-body">
             <div class="form-group">
-              <input type="hidden" name="id" id="id">
+              <input type="hidden" name="id_mobil" id="id_mobil">
               <label for="edit_name" class="text-primary">Nama Mobil:</label><br>
               <input type="text" name="edit_name" id="edit_name" class="form-control" required>
             </div>
@@ -197,7 +197,7 @@ if (isset($_POST['delete'])) {
       values = $(this).data("id");
       values = values.split(",");
       console.log(values);
-      $("#id").val(values[0]);
+      $("#id_mobil").val(values[0]);
       $("#edit_name").val(values[1]);
       $("#edit_plate").val(values[2]);
       $("#edit_price").val(values[3]);
