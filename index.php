@@ -104,7 +104,7 @@
                 </div>
                 <div class="down-content">
                   <h4 class="pt-3"> <?php echo $data['car_name']; ?> </h4>
-                  <p> <?php $data['description']; ?> </p>
+                  <p> <?php echo $data['description']; ?> </p>
                 </div>
               </div>
             </div>

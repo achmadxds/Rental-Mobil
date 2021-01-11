@@ -4,9 +4,9 @@
   $statusCar = 'Tersedia';
 
   $sql = query('SELECT `dc`.`id_cs`, `dc`.`id_car`, `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, 
-                  `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`, `md`.`id_mobil`
-                  FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
-                  ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
+                    `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`, `md`.`id_mobil`
+                    FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
+                    ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
 
   $selectCar = query('SELECT `id_mobil`, `car_name` FROM `mobil_data` where `status`="' . $statusCar . '" ');
 
@@ -95,13 +95,7 @@
                         <th>
                           <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
                           |
-                          <form method="post" style="float:right">
-                            <button type="submit" class="badge badge-success getID" name="done" id="done" data-id="<?php echo $debug; ?>" onclick="return confirm('Beneran nih?')"><i class="fas fa-check-circle fa-lg"></i></button>
-                            <input type="hidden" id="car_idSubmit" name="car_idSubmit">
-                            <input type="hidden" id="idE" name="idE">
-                            <input type="hidden" name="checkEn" id="checkEn">
-                            <input type="hidden" name="price" id="price">
-                          </form>
+                          <a href="" class="DeleteModal" data-toggle="modal" data-target="#DeleteModal" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
                         </th>
                       </tr>
                     </tbody>
@@ -279,6 +273,34 @@
       </div>
     </div>
   </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ALERT</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post">
+            <h4>Beneran Mau Selesaikan Task ini??</h4>
+            <input type="hidden" id="car_idSubmit" name="car_idSubmit">
+            <input type="hidden" id="idE" name="idE">
+            <input type="hidden" name="checkEn" id="checkEn">
+            <input type="hidden" name="price" id="price">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" name="done">Yes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 <script>
@@ -316,7 +338,7 @@
       });
     });
 
-    $(".getID").click(function() {
+    $(".DeleteModal").click(function() {
       values = $(this).data("id");
       values = values.split(",");
       console.log(values);

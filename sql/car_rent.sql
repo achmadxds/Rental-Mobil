@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 05, 2021 at 10:56 AM
+-- Generation Time: Jan 11, 2021 at 04:26 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -32,7 +32,7 @@ CREATE TABLE `data_customer` (
   `id_car` int(11) NOT NULL,
   `name` text NOT NULL,
   `identity` text NOT NULL,
-  `address` varchar(100) NOT NULL,
+  `address` text NOT NULL,
   `phone` text NOT NULL,
   `checkin` date NOT NULL,
   `checkout` date DEFAULT NULL,
@@ -46,7 +46,8 @@ CREATE TABLE `data_customer` (
 --
 
 INSERT INTO `data_customer` (`id_cs`, `id_car`, `name`, `identity`, `address`, `phone`, `checkin`, `checkout`, `days`, `totalPrice`, `status_cs`) VALUES
-(1, 1, 'Rais', 'rais.jpg', 'Mejobo', '0893589745', '2021-01-01', '2021-01-05', 4, 40000, 'Selesai');
+(1, 7, 'Tzuyu', 'Tzuyu.jpeg', 'Mejobo', '08392483899', '2021-01-01', NULL, NULL, NULL, 'Berjalan'),
+(2, 6, 'John', 'Alexander.jpeg', 'Jepang', '08829774899', '2021-01-08', '2021-01-11', 3, 300000, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -55,9 +56,9 @@ INSERT INTO `data_customer` (`id_cs`, `id_car`, `name`, `identity`, `address`, `
 --
 
 CREATE TABLE `mobil_data` (
-  `id` int(11) NOT NULL,
+  `id_mobil` int(11) NOT NULL,
   `car_name` text NOT NULL,
-  `plate_number` varchar(11) NOT NULL,
+  `license_number` text NOT NULL,
   `rental_price` int(11) NOT NULL,
   `type_car` text NOT NULL,
   `status` text NOT NULL,
@@ -69,10 +70,11 @@ CREATE TABLE `mobil_data` (
 -- Dumping data for table `mobil_data`
 --
 
-INSERT INTO `mobil_data` (`id`, `car_name`, `plate_number`, `rental_price`, `type_car`, `status`, `description`, `car_img`) VALUES
-(1, 'Avansa', 'K 8888 KO', 10000, 'Sedan', 'Tersedia', 'Mobil Terbaik Kamu yang kami rangkai', 'avansa.jpeg'),
-(2, 'Granmax', 'K 7777 KO', 80000, 'Sedan', 'Tersedia', 'Mobil Terbaik Kamu yang kami rangkai', 'granmax.jpeg'),
-(3, 'Ferrari', 'L 6000 KS', 1000000, 'Sedan', 'Tersedia', 'Mobil Mahal yang bikin pemilik nya aja jarang naek. sial emang', 'ferrari.jpeg');
+INSERT INTO `mobil_data` (`id_mobil`, `car_name`, `license_number`, `rental_price`, `type_car`, `status`, `description`, `car_img`) VALUES
+(4, 'Avansa', 'K 6666 KU', 125000, 'Sedan', 'Tersedia', 'Avansa V1', 'avansa.jpeg'),
+(5, 'Calya', 'k 5555 JY', 150000, 'Sedan', 'Tersedia', 'Avansa Lite Version', 'calya.jpeg'),
+(6, 'Granmax', 'K 6666 KU', 100000, 'PickUp', 'Tersedia', 'Mobil Kuda', 'granmax.jpeg'),
+(7, 'Ferrari', 'K 3333 KY', 300000, 'Sedan', 'Terpakai', 'Mobil Kuda Pro Edition', 'ferrari.jpeg');
 
 -- --------------------------------------------------------
 
@@ -82,9 +84,9 @@ INSERT INTO `mobil_data` (`id`, `car_name`, `plate_number`, `rental_price`, `typ
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `email` text NOT NULL,
+  `username` text NOT NULL,
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -92,7 +94,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`) VALUES
-(1, 'admin@admin.com', 'admin', 'admin');
+(2, 'rais@admin.com', 'rais', 'c0257943d80dbccbba5f1e25d962b991'),
+(3, 'admin@admin.com', 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 --
 -- Indexes for dumped tables
@@ -109,7 +112,7 @@ ALTER TABLE `data_customer`
 -- Indexes for table `mobil_data`
 --
 ALTER TABLE `mobil_data`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_mobil`);
 
 --
 -- Indexes for table `users`
@@ -125,19 +128,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `data_customer`
 --
 ALTER TABLE `data_customer`
-  MODIFY `id_cs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_cs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mobil_data`
 --
 ALTER TABLE `mobil_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -147,7 +150,7 @@ ALTER TABLE `users`
 -- Constraints for table `data_customer`
 --
 ALTER TABLE `data_customer`
-  ADD CONSTRAINT `join_id` FOREIGN KEY (`id_car`) REFERENCES `mobil_data` (`id`);
+  ADD CONSTRAINT `join_id` FOREIGN KEY (`id_car`) REFERENCES `mobil_data` (`id_mobil`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -64,7 +64,7 @@
                         <td>
                           <a href="" class="getID" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug; ?>"><?php echo $data['car_name']; ?></a>
                         </td>
-                        <th class="badge badge-danger mt-1"><?php echo $data['status_cs']; ?></th>
+                        <th class="badge badge-success mt-1"><?php echo $data['status_cs']; ?></th>
                         <th>
                           <form method="post">
                             <button type="submit" class="badge badge-success"><i class="fas fa-print fa-lg"></i></button>
