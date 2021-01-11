@@ -1,38 +1,40 @@
 <?php
-  include 'include.php';
-  $status = 'Tersedia';
-  $sql = query('SELECT `id_mobil`, `car_name`, `license_number`, `rental_price`, `type_car`, `status` FROM `mobil_data` ');
+include 'include.php';
+$status = 'Tersedia';
+$sql = query('SELECT `id_mobil`, 
+                     `car_name`, 
+                     `license_number`, 
+                     `rental_price`, 
+                     `type_car`, 
+                     `status` 
+              FROM `mobil_data` ');
 
 
-  if (isset($_POST['add_data'])) {
-    AddDataCar();
-    header('LOCATION:list_mobil.php');
-    exit;
-  }
+if (isset($_POST['add_data'])) {
+  AddDataCar();
+  header('LOCATION:list_mobil.php');
+  exit;
+}
 
-  if (isset($_POST['save'])) {
-    UpdateDataCar();
-    header('Refresh:0');
-  }
+if (isset($_POST['save'])) {
+  UpdateDataCar();
+  header('Refresh:0');
+}
 
-  if (isset($_POST['delete'])) {
-    DeleteDataCar($_POST['id_mobil']);
-    header('Refresh:0');
-  }
+if (isset($_POST['delete'])) {
+  DeleteDataCar($_POST['id_mobil']);
+  header('Refresh:0');
+}
 ?>
-
 
 <?php include 'template/header.php'; ?>
 
 <body id="page-top">
   <div id="wrapper">
-
     <?php include 'template/sidebar.php'; ?>
-
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <?php include 'template/navbar.php'; ?>
-
         <div class="container">
           <div class="float-left">
             <h3 class="text-primary"><b>LIST MOBIL</b></h3>
@@ -43,7 +45,6 @@
             </form>
           </div>
         </div>
-
         <!-- Table Data -->
         <div class="container pt-5 mt-3">
           <div class="card">
@@ -70,43 +71,40 @@
                   </tr>
                 </thead>
 
-                <?php
-                  $i = 1;
-                  foreach ($sql as $data) {
-                    $debug = implode(",", $data);
-                  ?>
-                    <tbody id="myTable">
-                      <tr>
-                        <th><?php echo $i; ?></th>
-                        <th><?php echo $data['car_name']; ?></th>
-                        <th><?php echo $data['license_number']; ?></th>
-                        <th><?php echo $data['rental_price']; ?></th>
-                        <th><?php echo $data['type_car']; ?></th>
-                        <?php
-                        if ($data['status'] == "Tersedia")
-                          $color = 'success';
-                        else
-                          $color = 'danger'; ?>
-                        <th class="badge badge-<?= $color ?> mt-1"><?php echo $data['status']; ?></th>
-                        <th>
-                          <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><i class="far fa-edit fa-lg"></i></a>
-                        </th>
-                      </tr>
-                    </tbody>
+                <tbody id="myTable">
                   <?php
-                    $i++;
-                  }
-                ?>
+                    $i = 1;
+                    foreach ($sql as $data) {
+                      $debug = implode(",", $data);
+                      ?>
+                        <tr>
+                          <th><?php echo $i; ?></th>
+                          <th><?php echo $data['car_name']; ?></th>
+                          <th><?php echo $data['license_number']; ?></th>
+                          <th><?php echo $data['rental_price']; ?></th>
+                          <th><?php echo $data['type_car']; ?></th>
+                          <?php
+                          if ($data['status'] == "Tersedia")
+                            $color = 'success';
+                          else
+                            $color = 'danger'; ?>
+                          <th class="badge badge-<?= $color ?> mt-1"><?php echo $data['status']; ?></th>
+                          <th>
+                            <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug ?>"><i class="far fa-edit fa-lg"></i></a>
+                          </th>
+                        </tr>
+                      <?php
+                      $i++;
+                    }
+                  ?>
+                </tbody>
               </table>
 
             </div>
           </div>
         </div>
-
       </div>
-
       <?php include 'template/footer.php'; ?>
-
     </div>
   </div>
 

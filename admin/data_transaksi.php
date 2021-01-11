@@ -3,10 +3,20 @@
   $status = 'Berjalan';
   $statusCar = 'Tersedia';
 
-  $sql = query('SELECT `dc`.`id_cs`, `dc`.`id_car`, `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, 
-                    `dc`.`checkin`, `dc`.`status_cs`, `md`.`car_name`, `md`.`car_name`, `md`.`rental_price`, `md`.`id_mobil`
-                    FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
-                    ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
+  $sql = query('SELECT `dc`.`id_cs`, 
+                       `dc`.`id_car`, 
+                       `dc`.`name`, 
+                       `dc`.`identity`, 
+                       `dc`.`address`, 
+                       `dc`.`phone`, 
+                       `dc`.`checkin`, 
+                       `dc`.`status_cs`, 
+                       `md`.`car_name`, 
+                       `md`.`car_name`, 
+                       `md`.`rental_price`, 
+                       `md`.`id_mobil`
+                FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
+                ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
 
   $selectCar = query('SELECT `id_mobil`, `car_name` FROM `mobil_data` where `status`="' . $statusCar . '" ');
 
@@ -36,13 +46,10 @@
 
 <body id="page-top">
   <div id="wrapper">
-
     <?php include 'template/sidebar.php'; ?>
-
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <?php include 'template/navbar.php'; ?>
-
         <div class="container">
           <div class="float-left">
             <h3 class="text-primary"><b>LIST CUSTOMER</b></h3>
@@ -53,7 +60,6 @@
             </form>
           </div>
         </div>
-
         <!-- Table Data -->
         <div class="container pt-5 mt-3">
           <div class="card">
@@ -78,40 +84,36 @@
                     <th scope="col">Option</th>
                   </tr>
                 </thead>
-
-                <?php
-                  $i = 1;
-                  foreach ($sql as $data) {
-                    $debug = implode(",", $data);
-                  ?>
-                    <tbody id="myTable">
-                      <tr>
-                        <th><?php echo $i; ?></th>
-                        <th><?php echo $data['name']; ?></th>
-                        <th><?php echo $data['address']; ?></th>
-                        <th><?php echo $data['car_name']; ?></th>
-                        <th><?php echo $data['checkin']; ?></th>
-                        <th class="badge badge-danger mt-1"><?php echo $data['status_cs']; ?></th>
-                        <th>
-                          <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
-                          |
-                          <a href="" class="DeleteModal" data-toggle="modal" data-target="#DeleteModal" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
-                        </th>
-                      </tr>
-                    </tbody>
+                <tbody id="myTable">
                   <?php
-                    $i++;
-                  }
-                ?>
+                    $i = 1;
+                    foreach ($sql as $data) {
+                      $debug = implode(",", $data);
+                      ?>
+                        <tr>
+                          <th><?php echo $i; ?></th>
+                          <th><?php echo $data['name']; ?></th>
+                          <th><?php echo $data['address']; ?></th>
+                          <th><?php echo $data['car_name']; ?></th>
+                          <th><?php echo $data['checkin']; ?></th>
+                          <th class="badge badge-danger mt-1"><?php echo $data['status_cs']; ?></th>
+                          <th>
+                            <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><i class="far fa-edit fa-lg"></i></a>
+                            |
+                            <a href="" class="DeleteModal" data-toggle="modal" data-target="#DeleteModal" data-id="<?php echo $debug; ?>"><i class="fas fa-check-circle fa-lg"></i></a>
+                          </th>
+                        </tr>
+                      <?php
+                      $i++;
+                    }
+                  ?>
+                </tbody>
               </table>
             </div>
           </div>
         </div>
-
       </div>
-
       <?php include 'template/footer.php'; ?>
-
     </div>
   </div>
 
@@ -192,7 +194,6 @@
       </div>
     </div>
   </div>
-
   <!-- Edit data -->
   <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -273,8 +274,6 @@
       </div>
     </div>
   </div>
-
-
   <!-- Modal -->
   <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -334,7 +333,8 @@
       });
 
       $(".filename").click(function() {
-        window.open("http://localhost/PKL/Rental-Mobil/admin/images/" + values[3]);
+        window.open("<?php $_SERVER['HTTP_HOST']; ?>/PKL/Rental-Mobil/admin/images/" + values[3]);
+        
       });
     });
 

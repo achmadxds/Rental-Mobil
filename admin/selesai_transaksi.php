@@ -1,10 +1,20 @@
 <?php
-  include 'include.php';
+include 'include.php';
 
-  $status = 'Selesai';
-  $statusCar = 'Tersedia';
+$status = 'Selesai';
+$statusCar = 'Tersedia';
 
-  $sql = query('SELECT `dc`.`name`, `dc`.`identity`, `dc`.`address`, `dc`.`phone`, `dc`.`checkin`, `dc`.`checkout`, `dc`.`totalPrice`, `dc`.`status_cs`, `md`.`car_name`, `md`.`license_number`, `md`.`rental_price`
+$sql = query('SELECT `dc`.`name`, 
+                     `dc`.`identity`, 
+                     `dc`.`address`, 
+                     `dc`.`phone`, 
+                     `dc`.`checkin`, 
+                     `dc`.`checkout`, 
+                     `dc`.`totalPrice`, 
+                     `dc`.`status_cs`, 
+                     `md`.`car_name`, 
+                     `md`.`license_number`, 
+                     `md`.`rental_price`
               FROM `data_customer` AS `dc` LEFT JOIN `mobil_data` AS `md` 
               ON `dc`.`id_car` = `md`.`id_mobil` where `dc`.`status_cs`="' . $status . '" ');
 ?>
@@ -13,19 +23,15 @@
 
 <body id="page-top">
   <div id="wrapper">
-
     <?php include 'template/sidebar.php'; ?>
-
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <?php include 'template/navbar.php'; ?>
-
         <div class="container">
           <div class="float-left">
             <h3 class="text-primary"><b>LIST CUSTOMER</b></h3>
           </div>
         </div>
-
         <!-- Table Data -->
         <div class="container pt-5 mt-3">
           <div class="card">
@@ -38,7 +44,6 @@
                   <input class="form-control mb-4" id="tableSearch" type="text" placeholder="search...">
                 </div>
               </form>
-
               <table class="table mt-5 text-center">
                 <thead>
                   <tr>
@@ -49,40 +54,36 @@
                     <th scope="col">Option</th>
                   </tr>
                 </thead>
-
-                <?php
-                  $i = 1;
-                  foreach ($sql as $data) {
-                    $debug = implode(",", $data);
-                  ?>
-                    <tbody id="myTable">
-                      <tr>
-                        <th><?php echo $i; ?></th>
-                        <td>
-                          <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><?php echo $data['name']; ?></a>
-                        </td>
-                        <td>
-                          <a href="" class="getID" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug; ?>"><?php echo $data['car_name']; ?></a>
-                        </td>
-                        <th class="badge badge-success mt-1"><?php echo $data['status_cs']; ?></th>
-                        <th>
-                          <form method="post">
-                            <button type="submit" class="badge badge-success"><i class="fas fa-print fa-lg"></i></button>
-                          </form>
-                        </th>
-                      </tr>
-
-                    </tbody>
+                <tbody id="myTable">
                   <?php
-                    $i++;
-                  }
-                ?>
+                    $i = 1;
+                    foreach ($sql as $data) {
+                      $debug = implode(",", $data);
+                      ?>
+                        <tr>
+                          <th><?php echo $i; ?></th>
+                          <td>
+                            <a href="" class="openEditDialog" data-toggle="modal" data-target="#modal2" data-id="<?php echo $debug; ?>"><?php echo $data['name']; ?></a>
+                          </td>
+                          <td>
+                            <a href="" class="getID" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug; ?>"><?php echo $data['car_name']; ?></a>
+                          </td>
+                          <th class="badge badge-success mt-1"><?php echo $data['status_cs']; ?></th>
+                          <th>
+                            <form method="post">
+                              <button type="submit" class="badge badge-success"><i class="fas fa-print fa-lg"></i></button>
+                            </form>
+                          </th>
+                        </tr>
+                      <?php
+                        $i++;
+                    }
+                  ?>
+                </tbody>
               </table>
-
             </div>
           </div>
         </div>
-
       </div>
 
       <?php include 'template/footer.php'; ?>

@@ -1,6 +1,10 @@
 <?php
   include 'include.php';
-  $sql = query('SELECT `id_mobil`, `car_name`, `description`, `car_img` FROM `mobil_data`');
+  $sql = query('SELECT `id_mobil`, 
+                       `car_name`, 
+                       `description`, 
+                       `car_img` 
+                FROM `mobil_data`');
 
   if (isset($_POST['editBanner'])) {
     UpdateBanner($_POST['car_aidi']);
@@ -14,17 +18,14 @@
 
   <div id="wrapper">
     <?php include 'template/sidebar.php'; ?>
-
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <?php include 'template/navbar.php'; ?>
-
         <div class="container">
           <div class="text-center">
             <h3 class="text-primary"><b>BANNER MOBIL</b></h3>
           </div>
         </div>
-
         <!-- Table Data -->
         <div class="container mt-3">
           <div class="card">
@@ -33,29 +34,26 @@
                 <?php
                   foreach ($sql as $data) {
                     $debug = implode(",", $data);
-                  ?>
-                    <div class="col-md-4">
-                      <button style="background:transparent; border:none; color:transparent;" name="editBanner" id="editBanner" class="text-center openEditDialog pt-4" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug ?>">
-                        <div class="card bg-dark text-white" style="width: 18rem;">
-                          <div class="card-body">
-                            <h5 class="card-title text-center"><?php echo $data['car_name']; ?></h5>
-                            <p class="pt-4 text-center">EDIT DATA</p>
+                    ?>
+                      <div class="col-md-4">
+                        <button style="background:transparent; border:none; color:transparent;" name="editBanner" id="editBanner" class="text-center openEditDialog pt-4" data-toggle="modal" data-target="#modal1" data-id="<?php echo $debug ?>">
+                          <div class="card bg-dark text-white" style="width: 18rem;">
+                            <div class="card-body">
+                              <h5 class="card-title text-center"><?php echo $data['car_name']; ?></h5>
+                              <p class="pt-4 text-center">EDIT DATA</p>
+                            </div>
                           </div>
-                        </div>
-                      </button>
-                    </div>
-                  <?php
+                        </button>
+                      </div>
+                    <?php
                   }
                 ?>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
       <?php include 'template/footer.php'; ?>
-
     </div>
   </div>
 
